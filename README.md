@@ -21,5 +21,5 @@ sudo apt-get install -y ansible
 
 Edit the `site.yml` file, mentioned the role that you want to use and then run this command:
 ```
-ansible-playbook -i hosts site.yml
+ansible-playbook -i hosts -u arbab site.yml
 ```
