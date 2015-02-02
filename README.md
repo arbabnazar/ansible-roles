@@ -19,7 +19,7 @@ sudo apt-get install -y ansible
 
 ### To use any Role:
 
-Edit the `*site.yml*` file, mentioned the role that you want to use and then run this command:
+Edit the `site.yml` file, mentioned the role that you want to use and then run this command:
 ```
 ansible-playbook -i hosts site.yml
 ```
