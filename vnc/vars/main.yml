@@ -1,0 +1,7 @@
+---
+default_passwd: mypassword
+vnc_client_res: "1024x600"
+vnc_users:
+  - { name: 'arbab', vnc_num: 1 }
+  - { name: 'ali', vnc_num: 2 }
+  - { name: 'hussain', vnc_num: 3 } 
