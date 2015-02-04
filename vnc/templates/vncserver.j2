@@ -1,0 +1,75 @@
+#!/bin/bash
+### BEGIN INIT INFO
+# Provides:          VNCSERVER
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start daemon at boot time
+# Description:       Enable service provided by daemon.
+### END INIT INFO
+unset VNCSERVERARGS
+VNCSERVERS=""
+[ -f /etc/vncservers.conf ] && . /etc/vncservers.conf
+prog=$"VNC server"
+start() {
+ . /lib/lsb/init-functions
+ REQ_USER=$2
+ echo -n $"Starting $prog: "
+ ulimit -S -c 0 >/dev/null 2>&1
+ RETVAL=0
+ for display in ${VNCSERVERS}
+ do
+ export USER="${display##*:}"
+ if test -z "${REQ_USER}" -o "${REQ_USER}" == ${USER} ; then
+ echo -n "${display} "
+ unset BASH_ENV ENV
+ DISP="${display%%:*}"
+ export VNCUSERARGS="${VNCSERVERARGS[${DISP}]}"
+ su ${USER} -c "cd ~${USER} && [ -f .vnc/passwd ] && vncserver :${DISP} ${VNCUSERARGS}"
+ fi
+ done
+}
+stop() {
+ . /lib/lsb/init-functions
+ REQ_USER=$2
+ echo -n $"Shutting down VNCServer: "
+ for display in ${VNCSERVERS}
+ do
+ export USER="${display##*:}"
+ if test -z "${REQ_USER}" -o "${REQ_USER}" == ${USER} ; then
+ echo -n "${display} "
+ unset BASH_ENV ENV
+ export USER="${display##*:}"
+ su ${USER} -c "vncserver -kill :${display%%:*}" >/dev/null 2>&1
+ fi
+ done
+ echo -e "\n"
+ echo "VNCServer Stopped"
+}
+case "$1" in
+start)
+start $@
+;;
+stop)
+stop $@
+;;
+restart|reload)
+stop $@
+sleep 3
+start $@
+;;
+condrestart)
+if [ -f /var/lock/subsys/vncserver ]; then
+stop $@
+sleep 3
+start $@
+fi
+;;
+status)
+status Xvnc
+;;
+*)
+echo $"Usage: $0 {start|stop|restart|condrestart|status}"
+exit 1
+esac

@@ -7,9 +7,9 @@ Ansible Roles:
 
 ### Requirements:
 
-We need Ansible software to be installed in order to use these roles, mean Roles can be run from any machine that have Ansible installed on.
+We need Ansible software to be installed in order to use these roles, means Roles can be run from any machine that have Ansible installed on.
 
-Here's the steps to install the Ansible on Ubuntu 14.04 LTS:
+Here are the steps to install the Ansible on Ubuntu 14.04 LTS:
 ```
 sudo apt-add-repository -y ppa:ansible/ansible
 sudo apt-get update
@@ -19,7 +19,7 @@ sudo apt-get install -y ansible
 
 ### To use any Role:
 
-Edit the `site.yml` file, mentioned the role that you want to use and then run this command:
+Edit the `hosts` file, enter the server ip/name on which you want to deploy the role(s). Then modify the `site.yml` file, mentioned the role that you want to use and then run this command:
 ```
 ansible-playbook -i hosts -u arbab site.yml
 ```

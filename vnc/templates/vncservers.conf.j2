@@ -1,0 +1,6 @@
+#{{ ansible_managed }}
+
+VNCSERVERS="{% for user in vnc_users %}{{user.vnc_num}}:{{user.name}} {% endfor %}"
+{% for vnc in vnc_users %}
+VNCSERVERARGS[{{vnc.vnc_num}}]="-geometry {{vnc_client_res}}"
+{% endfor %}
