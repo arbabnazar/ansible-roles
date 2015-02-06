@@ -10,7 +10,7 @@ Ansible Roles:
 We need Ansible software to be installed in order to use these roles, means Roles can be run from any machine that have Ansible installed on.
 
 Here are the steps to install the Ansible on Ubuntu 14.04 LTS:
-```
+```shell
 sudo apt-add-repository -y ppa:ansible/ansible
 sudo apt-get update
 sudo apt-get install -y ansible
