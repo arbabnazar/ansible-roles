@@ -8,7 +8,7 @@ This role is helpful to install Nginx, PHP and MySQL(LEMP) on Ubuntu server 14.0
 
 Edit the `site.yml` file, mentioned this role:
 
-```
+```yaml
 ---
  - hosts: vncserver
    sudo: True
