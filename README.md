@@ -23,5 +23,5 @@ Edit the `hosts` file, enter the server ip/name on which you want to deploy the 
 ```
 ansible-playbook -i hosts -u arbab site.yml
 ```
-
+**Note:** Please don't forget to change `arbab` with your username
 [Ansible Introduction]:https://serversforhackers.com/getting-started-with-ansible/
