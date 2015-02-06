@@ -19,13 +19,11 @@ Edit the `site.yml` file, mentioned this role:
 After that edit the `vars/main.yml` file:
 
 > Change the `mysql_port` & `mysql_bind_address` if you are using non-standard/modified setting. 
-
 > Edit the `mysql_root_pass` for MySQL root password.
-
 > Give the maximum nginx connections and server_name as well (default is 1024 connections and localhost as server_name)
 
 After Editing the file, it will look like this:
-```html
+```lang
 ---
  mysql_port: 3306 #Default is 3306, please change it if you are using non-standard
  mysql_bind_address: "127.0.0.1" #Change it to "0.0.0.0",if you want to listen everywhere
