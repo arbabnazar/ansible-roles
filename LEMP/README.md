@@ -2,7 +2,7 @@ Latest LEMP Stack Installation on Ubuntu Server using Ansible
 --------
 This role is helpful to install Nginx, PHP and MySQL(LEMP) on Ubuntu server 14.04 LTS.
 
-[LEMP Installation Tutorial] - This step by step tutorial explains the installation and configuration of a VNC server on Ubuntu server.
+[LEMP Installation Tutorial] - This step by step tutorial explains the installation and configuration of LEMP Stack on Ubuntu server.
 
 ### To use this Role:
 
