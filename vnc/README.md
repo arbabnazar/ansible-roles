@@ -8,7 +8,7 @@ This role is helpful to install VNC server on Ubuntu server 14.04 LTS.
 
 Edit the `site.yml` file, mentioned this role:
 
-```
+```yaml
 ---
  - hosts: vncserver
    sudo: True
