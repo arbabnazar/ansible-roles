@@ -10,7 +10,7 @@ Edit the `site.yml` file, mentioned this role:
 
 ```yaml
 ---
- - hosts: vncserver
+ - hosts: server
    sudo: True
    gather_facts: True
    roles:
