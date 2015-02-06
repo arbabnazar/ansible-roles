@@ -1,0 +1,9 @@
+---
+ website_name: rbgeek.com
+ wordpress_dir: /var/www
+ wordpress_url: http://wordpress.org/latest.tar.gz
+ wordpress_user: rbgeek_user
+ wordpress_passwd: wordpress_password
+ wordpress_db: rbgeek_database
+
+ 
