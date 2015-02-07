@@ -42,7 +42,7 @@ ansible-vault edit vars/main.yml
 ---
  # Username & Password that we want to create on the Linux Server
  username: arbab
- password: $6$ZdqWXxLVpGlD$T86H51YzBeFlTIDWIRMfkhzuB6KxzXXtJ8jAbBXvlVCj.biPoN8rgz3iFgXU9OZr7DAmveHnvViAyx6F/FfZ81
+ password: $6$ZdqWXxLVpGlD$T86H51YzBeFlTIDWIRMfkhzuB6KxzXXtJ8jAbBXvlViPoN8rgz3iFgXU9OZr7DAmveHnvViAyx6F/FfZ81
  # Mentioned your GMAIL ID and Password Here
  gmail_id: ansible@gmail.com
  gmail_password: tendo123
@@ -64,5 +64,11 @@ $ sudo apt-get install -y whois
 # Create a password hash
 $ mkpasswd --method=SHA-512
 Password:
-This will generate a hashed password for you to use with the user module.
+#This will generate a hashed password for you to use with the user module.
 ```
+Then run this command:
+
+```
+ansible-playbook --ask-vault-pass -i hosts -u arbab site.yml
+```
+**Note:** Please don't forget to change `arbab` with your username
