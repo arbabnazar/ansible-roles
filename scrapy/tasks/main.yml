@@ -1,0 +1,19 @@
+---
+ - name: Add the Scrapy repository key
+   apt_key: keyserver=hkp://keyserver.ubuntu.com:80 id=627220E7
+
+ - name: Add the Scrapy repository
+   apt_repository: repo='deb http://archive.scrapy.org/ubuntu scrapy main' state=present
+   
+ - name: Update the Repositories
+   apt: update_cache=yes 
+
+ - name: Install all the requird Python pkgs
+   apt: pkg={{ item }} state=installed
+   with_items:
+     - python-dev
+     - scrapy-0.24
+     - scrapyd
+   notify:
+     - Restart Scrapyd
+
