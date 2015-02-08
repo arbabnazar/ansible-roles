@@ -37,6 +37,7 @@ ansible-vault edit vars/main.yml
 **Note:** Default vault password is `tendo`
 
 > Change these values as per your requirement.
+
 > Don't forget to change the `id_rsa.pub` file inside the `files`directory.
 
 ```yaml
