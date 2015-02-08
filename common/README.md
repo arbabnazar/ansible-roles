@@ -7,7 +7,7 @@ Common Ansible Role for Ubuntu Server:
      - python-software-properties
      - git
  - Setting Hostname 
- - Add the additional sudo user with passwordless sudo option
+ - Add the additional sudo user and it's ssh key with passwordless sudo option
  - Enable the Multiverse repository
  - OpenNTPD Installation
  - Timezone Configuration
