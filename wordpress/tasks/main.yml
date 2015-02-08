@@ -18,6 +18,7 @@
  - name: Check that {{ wordpress_dir }} exist
    command: /usr/bin/test -e {{ wordpress_dir }}
    register: dir_exists
+   ignore_errors: True
 
  - name: Create wordpress directory at {{ wordpress_dir }}
    when: dir_exists.rc != 0
