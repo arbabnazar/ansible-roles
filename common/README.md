@@ -42,7 +42,7 @@ ansible-vault edit vars/main.yml
 ---
  # Username & Password that we want to create on the Linux Server
  username: arbab
- password: $6$ZdqWXxLVpGlD$T86H51YzBeFlTIDWIRMfkhzuB6KxzXXtJ8jAbBXvlViPoN8rgz3iFgXU9OZr7DAmveHnvViAyx6F/FfZ81
+ password: $6$ZdqWXxLVpGlBeFlTIDWIRMfkhzuB6KxzXXtJ8jAbBXvlViPoN8rgz3iFgXU9OZr7DAmveHnvViAyx6F/FfZ81
  # Mentioned your GMAIL ID and Password Here
  gmail_id: ansible@gmail.com
  gmail_password: tendo123
