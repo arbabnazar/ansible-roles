@@ -38,6 +38,7 @@ ansible-vault edit vars/main.yml
 > Change these values as per your requirement.
 
 > Don't forget to change the `id_rsa.pub` with your public key file inside the `files`directory.
+
 ```yaml
 ---
  # Username & Password that we want to create on the Linux Server
