@@ -20,7 +20,6 @@ Common Ansible Role for Ubuntu Server:
 ### To use this Role:
 
  Edit the `site.yml` file, mentioned this role:
-
 ```yaml
 ---
  - hosts: server
@@ -39,7 +38,6 @@ ansible-vault edit vars/main.yml
 > Change these values as per your requirement.
 
 > Don't forget to change the `id_rsa.pub` with your public key file inside the `files`directory.
-
 ```yaml
 ---
  # Username & Password that we want to create on the Linux Server
@@ -69,7 +67,6 @@ Password:
 #This will generate a hashed password for you to use with the user module.
 ```
 Then run this command:
-
 ```
 ansible-playbook --ask-vault-pass -i hosts -u arbab site.yml
 ```
