@@ -1,0 +1,10 @@
+---
+ - name: Fail2Ban | Install the Fail2Ban Package
+   apt: pkg=fail2ban state=installed update_cache=true
+
+ - name: Fail2Ban | Copy the modified config file
+   template: src=fail2ban/jail.local.j2 dest=/etc/fail2ban/jail.local owner=root group=root mode=0644
+   notify:
+     - Restart Fail2Ban 
+
+ 

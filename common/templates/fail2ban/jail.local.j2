@@ -1,0 +1,55 @@
+#{{ ansible_managed }}
+
+# Fail2Ban configuration file.
+
+[DEFAULT]
+
+ignoreip = 127.0.0.1/8
+
+# "bantime" is the number of seconds that a host is banned.
+bantime  = 600
+
+# A host is banned if it has generated "maxretry" during the last "findtime" seconds.
+findtime = 600
+maxretry = 3
+
+backend = auto
+usedns = warn
+
+# Destination email address used solely for the interpolations in
+destemail =  {{ receiver_mail }} 
+
+# Name of the sender for mta actions
+sendername = Fail2Ban
+
+# ACTIONS
+
+banaction = iptables-multiport
+
+# MTA for the mailing.
+mta = mail
+
+# Default protocol
+protocol = tcp
+
+# Specify chain where jumps would need to be added in iptables-* actions
+chain = INPUT
+
+# Action shortcuts.
+
+# ban & send an e-mail with whois report to the destemail.
+action_mw = %(banaction)s[name=%(__name__)s, port="%(port)s", protocol="%(protocol)s", chain="%(chain)s"]
+              %(mta)s-whois[name=%(__name__)s, dest="%(destemail)s", protocol="%(protocol)s", chain="%(chain)s", sendername="%(sendername)s"]
+
+# Choose default action.
+action = %(action_mw)s
+
+# JAILS
+
+[ssh]
+
+enabled  = true
+port     = ssh
+filter   = sshd
+logpath  = /var/log/auth.log
+maxretry = 3
