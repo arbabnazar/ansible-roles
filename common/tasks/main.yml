@@ -1,0 +1,12 @@
+---
+ - include: hostname.yml
+ - include: users.yml
+ - include: multiverse_repo.yml
+ - include: essentials.yml
+ - include: openntpd.yml
+ - include: timezone.yml
+ - include: vim.yml
+ - include: ssmtp.yml
+ - include: fail2ban.yml
+ - include: sec_updates.yml
+ - include: ufw.yml

@@ -1,0 +1,5 @@
+---
+ - name: UFW | Disable the ufw 
+   lineinfile: dest=/etc/ufw/ufw.conf regexp="^ENABLED" line="ENABLED=no" state=present
+   notify:
+     - Restart ufw

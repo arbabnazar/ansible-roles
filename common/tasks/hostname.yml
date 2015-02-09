@@ -1,0 +1,9 @@
+---
+ - name: Hostname | Update the hostname - (hostname cmd)
+   command: sudo hostname {{ hostname }}
+
+ - name: Hostname | Set the hostname
+   hostname: name={{ hostname }}
+
+ - name: Hostname | Update the hostname - (/etc/hosts)
+   lineinfile: dest=/etc/hosts regexp="^{{ default_ip }}" line="{{ default_ip }}    {{ fqdn }}    {{ hostname }}" state=present

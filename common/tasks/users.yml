@@ -1,0 +1,9 @@
+---
+ - name: Users | Create Super User
+   user: name={{ username }} password={{ password }} groups=sudo append=yes shell=/bin/bash
+
+ - name: Users | Add Super User Authorized Key
+   authorized_key: user={{ username }} key="{{ lookup('file', 'id_rsa.pub') }}" state=present
+
+ - name: Users | Enable passwordless sudo
+   copy: content="{{ username }} ALL=(ALL) NOPASSWD:ALL" dest=/etc/sudoers.d/99-{{ username }}
