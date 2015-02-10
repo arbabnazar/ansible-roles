@@ -1,5 +1,7 @@
 Common Ansible Role for Ubuntu Server:
 ---
+ There's a blog post that I wrote to go along with this. [Check it out!]
+
  With this role you can prepare your machine to do the following tasks:
   
  - Install the minimum essential packages
@@ -72,3 +74,4 @@ Then run this command:
 ansible-playbook --ask-vault-pass -i hosts -u arbab site.yml
 ```
 **Note:** Please don't forget to change `arbab` with your username
+[Check it out!]:https://rbgeek.wordpress.com/2015/02/10/post-installation-steps-on-ubuntu-using-ansible/
