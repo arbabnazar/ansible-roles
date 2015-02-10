@@ -57,7 +57,7 @@ ansible-vault edit vars/main.yml
  # Timezone Setting
  timezone: "Asia/Karachi"
 ```
-**Note** that the password for the user are also hashed. To generate the crypted passwords for the user module, use the following command(s):
+**Note** that the password for the user is also hashed. To generate the crypted passwords for the user module, use the following command(s):
 ```shell
 # The whois package makes the mkpasswd command available on Ubuntu
 $ sudo apt-get install -y whois
