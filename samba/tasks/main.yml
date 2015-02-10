@@ -1,0 +1,44 @@
+---
+ - name: Install the Samba and additional packages
+   apt: pkg={{ item }} state=installed update_cache=true
+   with_items:
+     - samba
+     - samba-common
+     - python-glade2
+     - system-config-samba
+
+ - name: Copy the Customize smb.conf file
+   template: src=etc_samba_smb.conf.j2 dest=/etc/samba/smb.conf backup=yes
+   notify:
+     - Restart Samba
+
+ - name: Create Samba users restricted group
+   group: name={{ samba_group_name }} state=present
+
+ - name: Add the User(s) to Samba group
+   user: name={{ item.name }} groups={{ samba_group_name }} append=yes
+   with_items:
+     smaba_users
+
+ - name: Create Samba Password for User(s)
+   shell: (echo {{ item.smbpasswd }}; echo {{ item.smbpasswd }}) | smbpasswd -s -a {{ item.name }}
+   with_items:
+     smaba_users
+
+ - name: Check that {{ public_share_path }} exist
+   command: /usr/bin/test -e {{ public_share_path }}
+   register: public_dir_exists
+   ignore_errors: True
+
+ - name: Create {{ public_share_path }} directory
+   when: public_dir_exists.rc != 0
+   file: state=directory path={{ public_share_path }} owner=nobody group=nogroup mode=0755 recurse=yes
+
+ - name: Check that {{ private_share_path }} exist
+   command: /usr/bin/test -e {{ private_share_path }}
+   register: private_dir_exists
+   ignore_errors: True
+
+ - name: Create {{ private_share_path }} directory
+   when: private_dir_exists.rc != 0
+   file: state=directory path={{ private_share_path }} owner=root group={{ samba_group_name }} mode=1770
