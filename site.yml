@@ -1,6 +1,6 @@
 ---
- - hosts: vncserver
+ - hosts: server
    sudo: True
    gather_facts: True
    roles:
-     - vnc
+     - common
