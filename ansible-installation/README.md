@@ -36,7 +36,7 @@ sudo pip install paramiko PyYAML jinja2 httplib2
 ```
 
 ###Sample Ansible Hosts File
-```yaml
+```ini
 [servers]
 11.22.33.44 ansible_connection=ssh  ansible_ssh_user=arbab
 ```
