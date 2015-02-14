@@ -21,17 +21,17 @@ In that case, you can download the Xcode from [here]
 
 Next, Install the Ansible:
 
-```shell
+```sh
 sudo easy_install pip
 sudo pip install ansible
 ```
 Later, if you want to update the Ansible, just do:
-```shell
+```sh
 sudo pip install ansible --upgrade
 ```
 
 Ansible also uses the following Python modules:
-```shell
+```sh
 sudo pip install paramiko PyYAML jinja2 httplib2
 ```
 
