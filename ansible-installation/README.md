@@ -7,13 +7,13 @@ Ansible uses Python and fortunately Python is already installed on Mac OSX.
 
 We shall need the developer tools to compile the Ansible, that are the part of Xcode. You can check if the developer tools are running:
 
-```bash
+```sh
 pkgutil --pkg-info=com.apple.pkg.CLTools_Executables
 ```
 
 If the tools are not installed then, you will see this message:
 
-```bash
+```sh
 No receipt for 'com.apple.pkg.CLTools_Executables' found at '/'.
 ```
 
