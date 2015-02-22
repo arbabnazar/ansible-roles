@@ -1,5 +1,7 @@
 Latest LEMP Stack Installation on Ubuntu Server using Ansible
 --------
+There's a blog post that I wrote to go along with this. [Check it out!]
+
 This role is helpful to install Nginx, PHP and MySQL(LEMP) on Ubuntu server 14.04 LTS.
 
 [LEMP Installation Tutorial] - This step by step tutorial explains the installation and configuration of LEMP Stack on Ubuntu server.
@@ -42,3 +44,4 @@ ansible-playbook -i hosts -u arbab site.yml
 **Note:** Please don't forget to change `arbab` with your username
 
 [LEMP Installation Tutorial]:https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-on-ubuntu-14-04
+[Check it out!]:https://rbgeek.wordpress.com/2015/02/22/installing-the-lemp-stack-on-ubuntu-using-ansible
