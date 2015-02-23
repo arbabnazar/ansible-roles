@@ -1,5 +1,7 @@
 SAMBA Server Installation on Ubuntu Server using Ansible
 --------
+There's a blog post that I wrote to go along with this. [Check it out!]
+
 This role is helpful to install SAMBA server on Ubuntu server 14.04 LTS.
 
 [SAMBA Installation Tutorial] - This step by step tutorial explains the installation and configuration of a SAMBA server on Ubuntu server.
@@ -10,7 +12,7 @@ Edit the `site.yml` file, mentioned this role:
 
 ```yaml
 ---
- - hosts: vncserver
+ - hosts: server
    sudo: True
    gather_facts: True
    roles:
@@ -42,3 +44,4 @@ ansible-playbook -i hosts -u arbab site.yml
 **Note:** Please don't forget to change `arbab` with your username
 
 [SAMBA Installation Tutorial]:https://rbgeek.wordpress.com/2012/04/25/how-to-install-samba-server-on-ubuntu-12-04/
+[Check it out!]:https://rbgeek.wordpress.com/2015/02/23/installing-the-samba-server-on-ubuntu-using-ansible/
