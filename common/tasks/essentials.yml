@@ -1,6 +1,6 @@
 ---
  - name: Essentials | Ensure that the repositories are update
-   action: apt update_cache=yes
+   apt: update_cache=yes
 
  - name: Essentials | Upgrade the Server
    apt: upgrade=safe
