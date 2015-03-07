@@ -1,0 +1,15 @@
+# {{ ansible_managed }}
+
+ddns-update-style none;
+default-lease-time 600;
+max-lease-time 7200;
+authoritative;
+log-facility local7;
+option subnet-mask {{ subnet_mask }}; 
+option broadcast-address {{ subnet }}.0; 
+option routers {{ subnet }}.{{ default_gateway }};
+option domain-name-servers {{ subnet }}.{{ dns_server }};
+option domain-name "{{ domain_name }}";
+subnet {{ subnet }}.0 netmask {{ subnet_mask }} {
+range {{ subnet }}.{{ start_range }} {{ subnet }}.{{ end_range }};
+}
