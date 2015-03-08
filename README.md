@@ -26,6 +26,5 @@ ansible-playbook -i hosts -u arbab site.yml
 **Note:** Please don't forget to change `arbab` with your username
 
 ### Author
-These Ansible roles are created by [Arbab Nazar] (arbab.nazar/gmail/com)
+These Ansible roles are created by [Arbab Nazar](https://github.com/arbabnazar)  (arbab.nazar/gmail/com)
 [Ansible Introduction]:https://serversforhackers.com/getting-started-with-ansible/
-[Arbab Nazar]:https://github.com/arbabnazar
