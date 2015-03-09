@@ -1,0 +1,5 @@
+---
+ - name: Reboot system if required
+   command: shutdown -r now 'Rebooting to complete system upgrade' 
+            removes=/var/run/reboot-required
+#https://coderwall.com/p/0nckqg/ansible-reboot-ubuntu-if-needed?p=2&q=
