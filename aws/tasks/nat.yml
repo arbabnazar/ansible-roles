@@ -1,0 +1,69 @@
+---
+ - name: NAT | Create the NAT Instance
+   local_action:
+     module: ec2
+     region: "{{ vpc_region }}"
+     group: "{{ group_name }}"
+     keypair: "{{ key_name }}"
+     instance_type: "{{ nat_instance_type }}"
+     image: "{{ imgae_id }}"
+     vpc_subnet_id: "{{ public_subnet }}"
+     private_ip: "{{ nat_private_ip }}"
+     source_dest_check: False
+     wait: True
+     wait_timeout: 500
+     instance_tags:
+       Name: "NAT_Instance"
+     exact_count: 1
+     count_tag: 
+       Name: "NAT_Instance"
+   register: ec2
+
+ - name: NAT | Set the EC2 instance id as face
+   set_fact:
+     ec2_inst_id : "{{ item.id }}"
+   with_items: ec2.instances
+
+ - name: NAT | Associate new EIP to the NAT Instance
+   local_action:
+     module: ec2_eip
+     region: "{{ vpc_region }}"
+     instance_id: "{{ ec2_inst_id }}"
+     in_vpc: True
+   when: ec2.changed
+   register: eip
+
+ - name: NAT | Add the newly created EC2 instance(s) to the local host group(located inside the directory)
+   local_action: lineinfile 
+                 dest="./hosts" 
+                 regexp="{{ eip.public_ip }}"
+                 insertafter="[nat]"
+                 line="{{ eip.public_ip }}"
+   when: eip.changed
+
+ - name: NAT | Redefine an AWS VPC with updated route tables
+   local_action:
+     module: ec2_vpc
+     region: "{{ vpc_region }}"
+     state: present
+     cidr_block: "{{ vpc_cidr_block }}"
+     resource_tags: { "Name":"{{ vpc_name| default(test) }}_vpc" }
+     subnets:
+       - cidr: "{{ public_cidr }}"
+         az: "{{ public_az }}"
+         resource_tags: { "Name":"{{ vpc_name| default(test) }}_public_subnet" }
+       - cidr: "{{ private_cidr }}"
+         az: "{{ private_az }}"
+         resource_tags: { "Name":"{{ vpc_name| default(test) }}_private_subnet" }
+     internet_gateway: True
+     route_tables:
+       - subnets:
+           - "{{ public_cidr }}"
+         routes:
+           - dest: 0.0.0.0/0
+             gw: igw
+       - subnets:
+           - "{{ private_cidr }}"
+         routes:
+           - dest: 0.0.0.0/0
+             gw: "{{ ec2_inst_id }}"

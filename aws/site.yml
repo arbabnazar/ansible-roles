@@ -1,0 +1,15 @@
+---
+
+ - hosts: all #local
+   #connection: local
+   gather_facts: no
+   vars_files:
+     - vars/vpc.yml
+     - vars/ec2_group.yml
+     - vars/nat.yml
+     - vars/ec2_key.yml
+   tasks:
+     - include: tasks/vpc.yml
+     - include: tasks/ec2_group.yml
+     - include: tasks/ec2_key.yml
+     - include: tasks/nat.yml

@@ -1,0 +1,10 @@
+---
+# Variables for VPC
+vpc_name: tendo
+vpc_region: ap-southeast-2
+vpc_cidr_block: 172.25.0.0/16
+public_cidr: 172.25.10.0/24
+public_az: "{{ vpc_region}}b"
+private_cidr: 172.25.20.0/24
+private_az: "{{ vpc_region }}a"
+nat_private_ip: 172.25.10.10

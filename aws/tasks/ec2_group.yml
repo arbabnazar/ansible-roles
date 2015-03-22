@@ -1,0 +1,27 @@
+---
+ - name: EC2Group | Creating an EC2 Security Group inside the Mentioned VPC
+   local_action: 
+     module: ec2_group
+     name: "{{ group_name }}"
+     description: "{{ group_des }}"
+     region: "{{ vpc_region }}" # Change the AWS region here
+     vpc_id: "{{ vpc.vpc_id }}" # vpc is the resgister name, you can also set it manually
+     state: present
+     rules:
+       - proto: tcp
+         from_port: 22
+         to_port: 22
+         cidr_ip: 0.0.0.0/0
+       - proto: all
+        # the containing group name may be specified here
+         group_name: "{{ group_name }}"
+   register: aws_sg
+
+ - name: EC2Group | Tag the security group with a name
+   local_action:
+     module: ec2_tag
+     resource: "{{aws_sg.group_id}}"
+     region: "{{ vpc_region }}"
+     state: present
+     tags:
+       Name: "{{vpc_name }}-{{ group_name }}"

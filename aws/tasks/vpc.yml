@@ -1,0 +1,38 @@
+---
+ - name: VPC | Creating an AWS VPC inside mentioned Region
+   local_action: 
+     module: ec2_vpc
+     region: "{{ vpc_region }}"
+     state: present
+     cidr_block: "{{ vpc_cidr_block }}"
+     resource_tags: { "Name":"{{ vpc_name }}_vpc" }
+     subnets: 
+       - cidr: "{{ public_cidr }}"
+         az: "{{ public_az }}"
+         resource_tags: { "Name":"{{ vpc_name }}_public_subnet" }
+       - cidr: "{{ private_cidr }}"
+         az: "{{ private_az }}"
+         resource_tags: { "Name":"{{ vpc_name }}_private_subnet" }
+     internet_gateway: yes
+     route_tables:
+       - subnets:
+           - "{{ public_cidr }}"
+         routes:
+           - dest: 0.0.0.0/0
+             gw: igw
+   register: vpc
+ 
+ - name: VPC | Write vpc id to "{{ vpc_name}}_vpc_info.yml" file
+   local_action: 
+     shell echo "{{ vpc.vpc_id }}" > ./vars/{{ vpc_name }}_vpc_info.yml
+
+ - name: VPC | Write public subnets id to  '{{ vpc_name }}'_vpc_info.yml file  
+   local_action: 
+     shell echo "{{ item.id }}" > ./vars/{{ item.resource_tags.Name }}.yml
+   with_items: vpc.subnets
+
+ - name: VPC | Set the public and private subnet id as facts
+   set_fact:
+     vpc_id: "{{ lookup('file', './vars/' + vpc_name + '_vpc_info.yml') }}"
+     public_subnet: "{{ lookup('file', './vars/' + vpc_name + '_public_subnet.yml') }}" 
+     private_subnet: "{{ lookup('file', './vars/' + vpc_name + '_private_subnet.yml') }}"
