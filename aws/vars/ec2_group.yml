@@ -1,0 +1,3 @@
+---
+ group_name: nat_sg 
+ group_des: This sg is for nat instance

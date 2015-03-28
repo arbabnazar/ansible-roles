@@ -1,0 +1,11 @@
+---
+ nat_instance_type: t2.micro
+
+ # Please don't change the variables below, until you know what you are doing
+ # Only Ubuntu distribution is supported
+  
+ linux_distribution: ubuntu
+ ubuntu_release: trusty
+ ami_store: ebs
+ virutalization_type: hvm
+ cpu_architecture: amd64

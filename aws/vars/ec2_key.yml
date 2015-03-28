@@ -1,0 +1,3 @@
+---
+ key_name: nat_key
+ ssh_key_location: ~/.ssh/id_rsa.pub 

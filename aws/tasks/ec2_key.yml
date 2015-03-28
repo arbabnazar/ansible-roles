@@ -1,0 +1,7 @@
+---
+ - name: EC2Key | Creates an new ec2 key with mentioned name if not present
+   local_action:
+     module: ec2_key
+     region: "{{ vpc_region }}"
+     name: "{{ key_name }}"
+     key_material:  "{{ lookup('file',  ssh_key_location ) }}"  

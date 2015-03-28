@@ -1,0 +1,6 @@
+private_subnet_rt:
+  - subnets:
+      - "{{ private_cidr }}"
+    routes:
+      - dest: 0.0.0.0/0
+        gw: "{{ ec2_inst_id }}"
