@@ -17,7 +17,7 @@ Edit the `site.yml` file, mentioned this role:
    gather_facts: True
    roles:
      - samba
-``` 
+```
 After that edit the `vars/main.yml` file:
 
 > Change the username(s) and their smbpassword, but these user(s) must exist on the target system.
@@ -31,7 +31,7 @@ After that edit the `vars/main.yml` file:
  private_share_name: private
  private_share_path: /samba/private
  samba_group_name: smbgrp
- smaba_users:
+ samba_users:
    - { name: 'arbab', smbpasswd: 'pass123' }
    - { name: 'hussain', smbpasswd: 'password' }
 ```
