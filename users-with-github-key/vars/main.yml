@@ -1,0 +1,11 @@
+---
+ users_list:
+  - username: arbabnazar
+    type: admin
+    state: present
+  - username: rbgeek
+    type: admin
+    state: present
+  - username: tendo
+    type: normal
+    state: absent
