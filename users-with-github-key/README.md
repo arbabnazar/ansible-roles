@@ -33,7 +33,7 @@ Change the username(s), type(either admin/sudo user or not) and state of the use
     state: absent
 ```
 Then run this command:
-
+```
 ansible-playbook -i hosts -u arbab site.yml
-
+```
 **Note:**Please don't forget to change arbab with your username
