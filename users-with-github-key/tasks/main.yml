@@ -23,6 +23,9 @@
    copy: 
     content="{{ item.username }} ALL=(ALL) NOPASSWD:ALL" 
     dest=/etc/sudoers.d/99-{{ item.username }}
+    mode=0440
+    owner=root
+    group=root
    when: item.type is defined and item.type == 'admin' and item.get('state', 'present') == 'present'
    with_items:
     users_list
