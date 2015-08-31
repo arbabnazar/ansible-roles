@@ -1,0 +1,16 @@
+---
+awscli_users:
+  - username: arbab
+    state: present
+    awscli: 
+        aws_region: us-east-1
+        aws_output_format: json # format can be 'text','table' and 'json'
+        aws_access_key_id: 'ARIAJLER6WZAG5EYNFYA'
+        aws_secret_access_key: '1Ev7UY8xl72ROs9SYRx4vEkiu76tyWoik8yl2w2'
+  - username: vagrant
+    state: present
+    awscli: 
+        aws_region: us-east-1
+        aws_output_format: table # format can be 'text','table' and 'json'
+        aws_access_key_id: 'AKIAJHER6HZAR7EYRFBA'
+        aws_secret_access_key: '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'
