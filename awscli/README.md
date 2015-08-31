@@ -37,6 +37,12 @@ awscli_users:
         aws_access_key_id: 'AKIAJHER6HZAR7EYRFBA'
         aws_secret_access_key: '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'
 ```
+Best option is to encrypt the variables file(vars/main.yml) by using the following command:
+
+```
+ansible-vault encrypt vars/main.yml
+```
+
 Then run this command:
 
 ```
