@@ -1,0 +1,42 @@
+---
+ - name: Ensure pip is installed
+   apt: 
+     name: python-pip 
+     update_cache: yes
+     state: latest
+
+ - name: pip install awscli
+   pip: 
+     name: awscli 
+     state: latest
+
+ - name: Enable TAB completion for awscli
+   lineinfile:
+     dest: "/home/{{ item.username }}/.bashrc"
+     line: "complete -C aws_completer aws"
+     state: "{{ item.state | default('present') }}"
+   with_items:
+     awscli_users
+
+ - name: Ensure .aws directory under user home for awscli config 
+   file:  
+     path: "/home/{{ item.username }}/.aws"
+     state: directory
+     owner: "{{ item.username }}"
+     group: "{{ item.username }}"
+     mode: 0755
+   when: item.get('state', 'present') == 'present'
+   with_items:
+     awscli_users
+
+ - name: copy awscli config to vm using templates
+   template:  
+     src: awscli_config.j2
+     dest: "/home/{{ item.username }}/.aws/config" 
+     owner: "{{ item.username }}"
+     group: "{{ item.username }}"
+     mode: 0644
+   when: item.get('state', 'present') == 'present'
+   with_items:
+     awscli_users
+
