@@ -29,7 +29,7 @@
    with_items:
      awscli_users
 
- - name: copy awscli config to vm using templates
+ - name: Copy awscli config to remote server
    template:  
      src: awscli_config.j2
      dest: "/home/{{ item.username }}/.aws/config" 
