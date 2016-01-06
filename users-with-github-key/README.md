@@ -16,7 +16,7 @@ Edit the `site.yml` file, mentioned this role:
      - users-with-github-key
 ```
 
-After that edit the `vars/main.yml` file:
+After that edit the `defaults/main.yml` file:
 
 Change the username(s), type(either admin/sudo user or not) and state of the user(want to create or remove it on the target system). These are self explanatory.
 
