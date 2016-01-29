@@ -1,9 +1,9 @@
 ---
- dhcp_interface: eth1
- subnet_mask: 255.255.255.0
- subnet: 192.168.33 # Please only add the first three octets
- default_gateway: 1 # Please only add the first octet i.e: 192.168.33.(1)
- dns_server: 254 # Please only add the first octet i.e: 192.168.33.(254)
- domain_name: tendo.local
- start_range: 50 # Start Range Example: 192.168.33.(50)
- end_range: 200  # End Range Example: 192.168.33.(200)
+dhcp_interface: eth1
+subnet_mask: 255.255.255.0
+subnet: 192.168.33 # Please only add the first three octets
+default_gateway: 1 # Please only add the first octet i.e: 192.168.33.(1)
+dns_server: 254 # Please only add the first octet i.e: 192.168.33.(254)
+domain_name: tendo.local
+start_range: 50 # Start Range Example: 192.168.33.(50)
+end_range: 200  # End Range Example: 192.168.33.(200)

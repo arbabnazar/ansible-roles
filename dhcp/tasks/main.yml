@@ -1,13 +1,22 @@
 ---
- - name: Install the DHCP package
-   apt: name=isc-dhcp-server state=latest update_cache=true
+- name: Install the DHCP package
+  apt: 
+    name: isc-dhcp-server 
+    state: latest 
+    update_cache: yes
 
- - name: Write the modified 'isc-dhcp-server' file
-   template: src=etc_default_isc-dhcp-server.j2 dest=/etc/default/isc-dhcp-server backup=yes
-   notify:
-     - Restart DHCP
+- name: Write the modified 'isc-dhcp-server' file
+  template: 
+    src: templates/etc_default_isc-dhcp-server.j2 
+    dest: /etc/default/isc-dhcp-server 
+    backup: yes
+  notify:
+    - Restart DHCP
 
- - name: Write the modified 'dhcpd.conf' file
-   template: src=etc_dhcp_dhcpd.conf.j2 dest=/etc/dhcp/dhcpd.conf backup=yes
-   notify:
-     - Restart DHCP
+- name: Write the modified 'dhcpd.conf' file
+  template: 
+    src: templates/etc_dhcp_dhcpd.conf.j2 
+    dest: /etc/dhcp/dhcpd.conf 
+    backup: yes
+  notify:
+    - Restart DHCP
