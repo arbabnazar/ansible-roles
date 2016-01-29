@@ -1,13 +1,18 @@
 ---
- - name: Essentials | Ensure that the repositories are update
-   apt: update_cache=yes
+- name: Essentials | Ensure that the repositories are update
+  apt:
+    update_cache: yes
 
- - name: Essentials | Upgrade the Server
-   apt: upgrade=safe
+- name: Essentials | Upgrade the Server
+  apt:
+    upgrade: safe
 
- - name: Essentials | Install all the essential packages
-   apt: pkg={{ item }} state=latest
-   with_items:
-     - build-essential
-     - python-software-properties
-     - git
+- name: Essentials | Install all the essential packages
+  apt:
+    name: "{{ item }}"
+    update_cache: yes
+    state: installed
+  with_items:
+    - build-essential
+    - python-software-properties
+    - git

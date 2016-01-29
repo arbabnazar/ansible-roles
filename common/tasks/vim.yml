@@ -1,6 +1,12 @@
 ---
- - name: Vim | Make sure vim-tiny is uninstalled
-   apt: pkg=vim-tiny state=absent purge=true
+- name: Vim | Make sure vim-tiny is uninstalled
+  apt:
+    name: vim-tiny
+    state: absent
+    purge: true
 
- - name: Vim | Make sure vim-nox is installed
-   apt: pkg=vim-nox state=latest update_cache=true
+- name: Vim | Make sure vim-nox is installed
+  apt:
+    name: vim-nox
+    state: latest
+    update_cache: yes

@@ -1,11 +1,20 @@
 ---
- - name: SSMTP | Install the SSMTP Package
-   apt: pkg={{ item }} state=installed update_cache=true
-   with_items:
-     - ssmtp
-     - mailutils
+- name: SSMTP | Install the SSMTP Package
+  apt:
+    name: "{{ item }}"
+    state: installed 
+    update_cache: yes
+  with_items:
+    - ssmtp
+    - mailutils
 
- - name: SSMTP | Copy the ssmtp modified config file
-   template: src=ssmtp/ssmtp.conf.j2 dest=/etc/ssmtp/ssmtp.conf owner=root group=root mode=0644 backup=yes
+- name: SSMTP | Copy the ssmtp modified config file
+  template:
+    src: ssmtp/ssmtp.conf.j2
+    dest: /etc/ssmtp/ssmtp.conf
+    owner: root 
+    group: root
+    mode: 0644
+    backup: yes
 
  

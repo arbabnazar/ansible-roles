@@ -1,13 +1,20 @@
 ---
- - name: TimeZone | Check the Current Timezone
-   command: cat /etc/timezone
-   register: current_timezone
+- name: TimeZone | Check the Current Timezone
+  command: cat /etc/timezone
+  changed_when: no
+  register: current_timezone
 
- - name: TimeZone | Set the provided Timezone
-   copy: content="{{ timezone }}" dest=/etc/timezone owner=root group=root mode=0644 backup=yes
-   when: current_timezone.stdout != "{{ timezone }}"
-   register: set_timezone
+- name: TimeZone | Set the provided Timezone
+  copy: 
+    content: "{{ timezone }}" 
+    dest: /etc/timezone
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+  when: "current_timezone.stdout != '{{ timezone }}'"
+  register: set_timezone
 
- - name: TimeZone | Update Timezone
-   command: dpkg-reconfigure --frontend noninteractive tzdata
-   when: set_timezone.changed
+- name: TimeZone | Update Timezone
+  command: dpkg-reconfigure --frontend noninteractive tzdata
+  when: set_timezone.changed
