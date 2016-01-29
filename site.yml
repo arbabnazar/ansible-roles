@@ -1,6 +1,6 @@
 ---
- - hosts: server
-   sudo: True
-   gather_facts: True
+ - hosts: all
+   become: yes
+   gather_facts: yes
    roles:
-     - common 
+     - dhcp 
