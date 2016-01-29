@@ -1,14 +1,17 @@
 ---
- - name: Multiverse_Repo | Install the multiverse repo
-   apt_repository: repo="{{item}}" update_cache=false  # We will do ourselfs afterwards
-   register: multiverse_installed
-   when: ansible_distribution == 'Ubuntu'
-   with_items:
-     - 'deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} multiverse'
-     - 'deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} multiverse'
-     - 'deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates multiverse'
-     - 'deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates multiverse'
+- name: Multiverse_Repo | Install the multiverse repo
+  apt_repository: 
+    repo: "{{item}}" 
+    update_cache: no  # We will do ourselfs afterwards
+  register: multiverse_installed
+  when: ansible_distribution == 'Ubuntu'
+  with_items:
+    - 'deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} multiverse'
+    - 'deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}} multiverse'
+    - 'deb http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates multiverse'
+    - 'deb-src http://archive.ubuntu.com/ubuntu {{ansible_distribution_release}}-updates multiverse'
 
- - name: Multiverse_Repo | Update the repo, if the multiverse installed 
-   apt:  update_cache=true
-   when: multiverse_installed | changed
+- name: Multiverse_Repo | Update the repo if the multiverse installed 
+  apt:  
+    update_cache: yes
+  when: multiverse_installed | changed

@@ -1,6 +1,16 @@
 ---
- - name: Restart Fail2Ban
-   service: name=fail2ban state=restarted
+- name: Restart Fail2Ban
+  service: 
+    name: fail2ban 
+    state: restarted
 
- - name: Restart ufw
-   service: name=ufw state=restarted
+- name: Restart ufw
+  service:
+    name: ufw
+    state: restarted
+
+- name: Start openntpd
+  service: 
+    name: openntpd 
+    state: started 
+    enabled: yes
