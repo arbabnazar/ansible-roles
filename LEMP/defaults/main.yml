@@ -1,0 +1,30 @@
+---
+mysql_port: 3306 #Default is 3306, please change it if you are using non-standard
+mysql_bind_address: "127.0.0.1" #Change it to "0.0.0.0",if you want to listen everywhere
+mysql_root_pass: mypassword #MySQL Root Password
+connections: 1024 #Nginx Connection
+server_name: localhost #Nginx server_name, change it to your website e.g: rbgeek.com
+
+ubuntu_mysql_pkgs:
+  - mysql-server-5.6
+  - mysql-client-5.6
+  - python-mysqldb
+  - libmysqlclient-dev
+
+ubuntu_php_pkgs:
+  - php5-fpm
+  - php5-cgi
+  - php5-cli
+  - php5-curl
+  - php5-json
+  - php5-odbc
+  - php5-tidy
+  - php5-common
+  - php5-xmlrpc
+  - php5-gd
+  - php-pear
+  - php5-dev
+  - php5-imap
+  - php5-mcrypt
+  - php5-mysqlnd
+

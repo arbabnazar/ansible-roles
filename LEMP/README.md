@@ -18,7 +18,7 @@ Edit the `site.yml` file, mentioned this role:
    roles:
      - LEMP
 ``` 
-After that edit the `vars/main.yml` file:
+After that edit the `defaults/main.yml` file:
 
 > Change the `mysql_port` & `mysql_bind_address` if you are using non-standard/modified setting. 
 >
