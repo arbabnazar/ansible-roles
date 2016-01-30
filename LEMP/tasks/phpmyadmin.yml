@@ -1,22 +1,24 @@
 ---
+- name: debconf for phpmyadmin
+  debconf:
+    name: phpmyadmin
+    question: "{{ item.question }}"
+    value: "{{ item.value }}"
+    vtype: "{{ item.vtype }}"
+  with_items:
+    - { question: 'phpmyadmin/dbconfig-install', value: 'true', vtype: 'boolean' }
+    - { question: 'phpmyadmin/app-password-confirm', value: '{{mysql_root_pass}}', vtype: 'password' }
+    - { question: 'phpmyadmin/mysql/admin-pass', value: '{{mysql_root_pass}}', vtype: 'password' }
+    - { question: 'phpmyadmin/mysql/app-pass', value: '{{mysql_root_pass}}', vtype: 'password' }
+    - { question: 'phpmyadmin/reconfigure-webserver', value: '', vtype: 'multiselect' }
 
- - name: debconf for pma
-   debconf: name=phpmyadmin question='phpmyadmin/dbconfig-install' value='true' vtype='boolean'
+- name: Install the phpmyadmin
+  apt:
+    name: phpmyadmin
+    state: present
 
- - name: debconf for pma
-   debconf: name=phpmyadmin question='phpmyadmin/app-password-confirm' value='{{mysql_root_pass}}' vtype='password'
-
- - name: debconf for pma
-   debconf: name=phpmyadmin question='phpmyadmin/mysql/admin-pass' value='{{mysql_root_pass}}' vtype='password'
-
- - name: debconf for pma
-   debconf: name=phpmyadmin question='phpmyadmin/mysql/app-pass' value='{{mysql_root_pass}}' vtype='password'
-
- - name: debconf for pma
-   debconf: name=phpmyadmin question='phpmyadmin/reconfigure-webserver' value='' vtype='multiselect'
-
- - name: install pma
-   apt: pkg=phpmyadmin state=present
-
- - name: configure site
-   file: path=/var/www/html/phpmyadmin src=/usr/share/phpmyadmin state=link
+- name: Configure site for phpmyadmin
+  file:
+    path: "/var/www/html/phpmyadmin"
+    src: "/usr/share/phpmyadmin"
+    state: link

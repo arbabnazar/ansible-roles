@@ -1,44 +1,36 @@
 ---
- - name: Install the Nginx Repository 
-   apt_repository: repo='ppa:nginx/stable' state=present
-   register: ppainstalled
+- name: Install the Nginx Repository 
+  apt_repository:
+    repo: 'ppa:nginx/stable'
+    state: present
  
- - name: Update the Repositories 
-   apt: update_cache=true
- 
- - name: Install Nginx
-   apt: pkg=nginx state=installed update_cache=true
-   when: ppainstalled|success
-   register: nginxinstalled
-   notify:
-     - Restart Nginx
- 
- - name: Write the modified nginx.conf
-   when: nginxinstalled|success 
-   template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf backup=yes
-   notify:
-     - Restart Nginx  
+- name: Install Nginx
+  apt:
+    name: nginx
+    state: installed
+    update_cache: yes
 
- - name: Disable Default Nginx Site
-   file: dest=/etc/nginx/sites-enabled/default state=absent
-   notify:
-     - Restart Nginx
- 
- - name: Add the virtualhost config
-   when: nginxinstalled|success
-   template: src=virtualhost.conf.j2 dest=/etc/nginx/sites-available/test_site owner=root group=root
-   notify:
-     - Restart Nginx
+- name: Copy the templates to their respestive destination
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ item.owner | default('root') }}"
+    group: "{{ item.group | default('root') }}" 
+  with_items:
+    - { src: 'nginx.conf.j2', dest: '/etc/nginx/nginx.conf' }
+    - { src: 'virtualhost.conf.j2', dest: '/etc/nginx/sites-available/{{ server_name }}' }
+    - { src: 'index.php.j2', dest: '/var/www/html/index.php', owner: 'www-data', group: 'www-data' }
+  notify:
+    - Restart Nginx
 
- - name: Enable "testWebsite" Site Config
-   file: src=/etc/nginx/sites-available/test_site dest=/etc/nginx/sites-enabled/test_site state=link
-   notify:
-     - Restart Nginx
-
- - name: Delete the Default index page in Nginx
-   when: nginxinstalled|success
-   file: dest=/var/www/html/index.nginx-debian.html state=absent
- 
- - name: Copy the modified index page in Nginx
-   when: nginxinstalled|success
-   template: src=index.php.j2 dest=/var/www/html/index.php owner=www-data group=www-data
+- name: Perform action of the desired files
+  file:
+    src: "{{ item.src | default(omit) }}"
+    dest: "{{ item.dest }}"
+    state: "{{ item.state }}"
+  with_items:
+    - { dest: '/etc/nginx/sites-enabled/default', state: 'absent' }
+    - { dest: '/var/www/html/index.nginx-debian.html', state: 'absent' }
+    - { src: '/etc/nginx/sites-available/{{ server_name }}', dest: '/etc/nginx/sites-enabled/{{ server_name }}', state: 'link' }
+  notify:
+    - Restart Nginx
