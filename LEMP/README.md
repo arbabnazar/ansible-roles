@@ -12,11 +12,11 @@ Edit the `site.yml` file, mentioned this role:
 
 ```yaml
 ---
- - hosts: server
-   sudo: True
-   gather_facts: True
-   roles:
-     - LEMP
+- hosts: server
+  become: yes
+  gather_facts: yes
+  roles:
+    - LEMP
 ``` 
 After that edit the `defaults/main.yml` file:
 

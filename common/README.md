@@ -24,11 +24,11 @@ Common Ansible Role for Ubuntu Server:
  Edit the `site.yml` file, mentioned this role:
 ```yaml
 ---
- - hosts: server
-   sudo: True
-   gather_facts: True
-   roles:
-     - common
+- hosts: server
+  become: yes
+  gather_facts: yes
+  roles:
+    - common
 ```
 
 After that edit the encrypted `vars/main.yml` file with this command:
