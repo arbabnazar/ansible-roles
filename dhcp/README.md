@@ -10,11 +10,11 @@ Edit the `site.yml` file, mentioned this role:
 
 ```yaml
 ---
- - hosts: server
-   sudo: True
-   gather_facts: True
-   roles:
-     - dhcp
+- hosts: server
+  become: yes
+  gather_facts: yes
+  roles:
+    - dhcp
 ``` 
 After that edit the `vars/main.yml` file:
 

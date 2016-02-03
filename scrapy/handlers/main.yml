@@ -1,3 +1,5 @@
 ---
- - name: Restart Scrapyd
-   service: name=scrapyd state=restarted
+- name: Restart Scrapyd
+  service:
+    name: scrapyd
+    state: restarted

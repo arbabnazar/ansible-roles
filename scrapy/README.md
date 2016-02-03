@@ -10,11 +10,11 @@ Ansible Role for Scrapy Installation on Ubuntu Server:
 
 ```yaml
 ---
- - hosts: server
-   sudo: True
-   gather_facts: True
-   roles:
-     - scrapy
+- hosts: server
+  become: yes
+  gather_facts: yes
+  roles:
+    - scrapy
 ```
 
  Then run this command:
