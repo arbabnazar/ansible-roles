@@ -16,25 +16,31 @@ Edit the `site.yml` file, mentioned this role:
 
 ```yaml
 ---
- - hosts: server
-   sudo: True
-   gather_facts: True
-   roles:
-     - wordpress
+- hosts: all
+  become: yes
+  gather_facts: yes
+  roles:
+    - wordpress
 ``` 
 
-After that edit the `vars/main.yml` file:
+After that edit the `defaults/main.yml` file:
 
 > Change these values as per your requirement. These are self explanatory.
 
 ```yaml
 ---
- website_name: rbgeek.com
- wordpress_dir: /var/www
- wordpress_url: http://wordpress.org/latest.tar.gz
- wordpress_user: rbgeek_user
- wordpress_passwd: wordpress_password
- wordpress_db: rbgeek_database
+ ---
+mysql_port: 3306 #Default is 3306, please change it if you are using non-standard
+mysql_bind_address: "127.0.0.1" #Change it to "0.0.0.0",if you want to listen everywhere
+mysql_root_pass: mypassword #MySQL Root Password
+connections: 1024 #Nginx Connection
+
+website_name: test.com
+wordpress_dir: /var/www
+wordpress_url: http://wordpress.org/latest.tar.gz
+wordpress_user: rbgeek_user
+wordpress_passwd: wordpress_password
+wordpress_db: rbgeek_database
 ```
 
 Then run this command:
