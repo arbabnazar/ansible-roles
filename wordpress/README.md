@@ -29,7 +29,6 @@ After that edit the `defaults/main.yml` file:
 
 ```yaml
 ---
- ---
 mysql_port: 3306 #Default is 3306, please change it if you are using non-standard
 mysql_bind_address: "127.0.0.1" #Change it to "0.0.0.0",if you want to listen everywhere
 mysql_root_pass: mypassword #MySQL Root Password
