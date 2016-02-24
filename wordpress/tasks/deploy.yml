@@ -1,0 +1,91 @@
+--- 
+- name: Delete the html directory
+  file:
+    path: "/var/www/html"
+    state: absent
+    recurse: no
+  ignore_errors: yes
+ 
+- name: check if DB exists
+  shell: "mysql -e 'SHOW DATABASES;' | grep {{ wordpress_db }}"
+  register: dbstatus
+  ignore_errors: yes
+ 
+- name: "Create a new database with name {{ wordpress_db }}"
+  mysql_db:
+    name: "{{ wordpress_db }}"
+    encoding: utf8
+    collation: utf8_general_ci
+    state: present
+  when: dbstatus.rc != 0
+
+- name: Create the database user for wordpress
+  mysql_user:
+    name: "{{ wordpress_user }}"
+    password: "{{ wordpress_passwd }}"
+    priv: "{{ wordpress_db }}.*:ALL"
+    state: present
+
+- name: "Check that {{ wordpress_dir }} exist"
+  stat:
+    path: "{{ wordpress_dir }}" 
+  register: dir_exists
+
+- name: "Create wordpress directory at {{ wordpress_dir }}"
+  file:
+    state: directory
+    path: "{{ wordpress_dir }}" 
+    owner: www-data
+    group: www-data
+    mode: 0755
+    recurse: yes
+  when: dir_exists.stat.exists == False
+
+- name: Download the latest wordpress
+  get_url:
+    url: "{{ wordpress_url }}"
+    dest: "{{ wordpress_dir }}/latest.tar.gz"
+ 
+- name: Unzip the downloaded wordpress zipped file
+  unarchive:
+    src: "{{ wordpress_dir }}/latest.tar.gz"
+    dest: "{{ wordpress_dir }}"
+    copy: no
+
+- name: Rename the extracted wordpress directory as Website name
+  command: "mv wordpress {{ website_name }}"
+  args:
+    chdir: "{{ wordpress_dir }}"
+    creates: "{{ wordpress_dir }}/{{ website_name }}"
+  register: dir_rename
+
+- name: "Copy the wp-config.php file inside the {{ website_name }} directory"
+  template:
+    src: wp-config.php.j2
+    dest: "{{ wordpress_dir }}/{{ website_name }}/wp-config.php"
+  when: dir_rename.changed
+
+- name: Reset the permission on Website directory
+  file:
+    state: directory
+    path: "{{ wordpress_dir }}/{{ website_name }}"
+    owner: www-data
+    group: www-data
+    recurse: yes
+ 
+- name: "Add the {{ website_name }} config"
+  template:
+    src: virtualhost.conf.j2
+    dest: "/etc/nginx/sites-available/{{ website_name }}"
+    owner: root
+    group: root
+  notify:
+    - Restart Nginx
+
+- name: "Enable {{ website_name }} Site Config"
+  file:
+    src: "/etc/nginx/sites-available/{{ website_name }}"
+    dest: "/etc/nginx/sites-enabled/{{ website_name }}"
+    state: link
+  notify:
+    - Restart Nginx

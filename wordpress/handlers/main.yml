@@ -1,0 +1,16 @@
+---
+- name: Restart Nginx
+  service:
+    name: nginx
+    state: restarted
+
+- name: Restart PHP5-FPM
+  service:
+    name: php5-fpm
+    state: restarted
+
+- name: Restart MySQL
+  service:
+    name: mysql
+    state: restarted
+

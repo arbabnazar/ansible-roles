@@ -1,0 +1,14 @@
+---
+mysql_port: 3306 #Default is 3306, please change it if you are using non-standard
+mysql_bind_address: "127.0.0.1" #Change it to "0.0.0.0",if you want to listen everywhere
+mysql_root_pass: mypassword #MySQL Root Password
+connections: 1024 #Nginx Connection
+
+website_name: test.com
+wordpress_dir: /var/www
+wordpress_url: http://wordpress.org/latest.tar.gz
+wordpress_user: rbgeek_user
+wordpress_passwd: wordpress_password
+wordpress_db: rbgeek_database
+
+ 

@@ -1,0 +1,31 @@
+---
+- name: Install the Nginx Repository 
+  apt_repository:
+    repo: "ppa:nginx/stable"
+    state: present
+
+- name: Update the Repositories 
+  apt: 
+    update_cache: yes
+ 
+- name: Install Nginx
+  apt:
+    name: nginx 
+    state: latest
+ 
+- name: Write the modified nginx.conf
+  template:
+    src: "nginx.conf.j2" 
+    dest: "/etc/nginx/nginx.conf"
+  notify:
+    - Restart Nginx  
+
+- name: Delete the default unnecessary files
+  file:
+    dest: "{{ item }}"
+    state: absent
+  with_items:
+   - "/etc/nginx/sites-enabled/default"
+   - "/var/www/html/index.nginx-debian.html"
+  notify:
+    - Restart Nginx

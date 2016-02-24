@@ -1,0 +1,40 @@
+---
+- name: Install the PHP5 Repository 
+  apt_repository: 
+    repo: "ppa:ondrej/php5"
+    state: present
+ 
+- name: Update the Repositories 
+  apt: 
+    update_cache: yes
+ 
+- name: Install PHP5-FPM
+  apt: 
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - php5-fpm
+    - php5-cgi
+    - php5-cli
+    - php5-curl
+    - php5-json
+    - php5-odbc
+    - php5-tidy
+    - php5-common
+    - php5-xmlrpc
+    - php5-gd
+    - php-pear
+    - php5-dev
+    - php5-imap
+    - php5-mcrypt
+    - php5-mysqlnd
+
+- name: Copy the custom settings
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: 'www.conf.j2', dest: '/etc/php5/fpm/pool.d/www.conf' }
+    - { src: 'php.ini.j2', dest: '/etc/php5/fpm/php.ini' }
+  notify:
+    - Restart PHP5-FPM
