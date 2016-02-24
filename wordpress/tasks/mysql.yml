@@ -1,0 +1,52 @@
+---
+- name: Install the MySQL packages
+  apt:
+    name: "{{ item }}"
+    state: installed
+    update_cache: yes
+  with_items:
+    - mysql-server-5.6
+    - mysql-client-5.6
+    - python-mysqldb
+    - libmysqlclient-dev
+
+- name: Update MySQL root password for all root accounts 
+  mysql_user:
+    name: root
+    host: "{{ item }}"
+    password: "{{ mysql_root_pass }}"
+    state: present
+  with_items:
+    - "{{ ansible_hostname }}"
+    - 127.0.0.1
+    - ::1
+    - localhost
+
+- name: Copy the templates to their respestive destination
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root 
+    group: root 
+    mode: "{{ item.mode | default(644) }}"
+  with_items:
+    - { src: 'my.cnf.j2', dest: '/etc/mysql/my.cnf' }
+    - { src: 'root.cnf.j2', dest: '~/.my.cnf', mode: '600' }
+  notify:
+    - Restart MySQL
+
+- name: Ensure Anonymous user(s) are not in the database
+  mysql_user:
+    name: ''
+    host: "{{ item }}"
+    state: absent
+  with_items:
+    - localhost
+    - "{{ ansible_hostname }}"
+ 
+- name: Remove the test database
+  mysql_db:
+    name: test
+    state: absent
+  notify:
+    - Restart MySQL
