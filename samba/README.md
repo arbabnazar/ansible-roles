@@ -12,28 +12,35 @@ Edit the `site.yml` file, mentioned this role:
 
 ```yaml
 ---
- - hosts: server
-   sudo: True
-   gather_facts: True
-   roles:
-     - samba
+- hosts: server
+  become: yes
+  gather_facts: yes
+  roles:
+    - samba
 ```
-After that edit the `vars/main.yml` file:
+After that edit the `defaults/main.yml` file:
 
 > Change the username(s) and their smbpassword, but these user(s) must exist on the target system.
 > Also change the other values as per your requirement. These are self explanatory.
 
 ```yaml
 ---
- workgroup: WORKGROUP
- public_share_name: public
- public_share_path: /samba/public
- private_share_name: private
- private_share_path: /samba/private
- samba_group_name: smbgrp
- samba_users:
-   - { name: 'arbab', smbpasswd: 'pass123' }
-   - { name: 'hussain', smbpasswd: 'password' }
+ubuntu_samba_packages:
+  - samba
+  - samba-common
+  - python-glade2
+  - system-config-samba
+workgroup: WORKGROUP
+public_share_name: public
+public_share_path: /samba/public
+private_share_name: private
+private_share_path: /samba/private
+samba_group_name: smbgrp
+samba_users:
+  - name: 'arbab'
+    smbpasswd: 'pass123'
+  - name: 'hussain'
+    smbpasswd: 'password' 
 ```
 
 Then run this command:
