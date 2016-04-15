@@ -13,12 +13,12 @@ Edit the `site.yml` file, mentioned this role:
 ```yaml
 ---
  - hosts: vncserver
-   sudo: True
-   gather_facts: True
+   become: yes
+   gather_facts: yes
    roles:
      - vnc
 ``` 
-After that edit the `vars/main.yml` file:
+After that edit the `defaults/main.yml` file:
 
 > Change the username(s),port(s) and resolution for VNC Client as per your environment, but these user(s) must exist on the target system.
 > Here 1 will make vnc port 5901 for the user, 2 will enable the user to get access to the VNC Server with the port 5902.
