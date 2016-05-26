@@ -9,7 +9,7 @@
     name: "{{ item }}"
     state: latest
     update_cache: yes
-  with_items: ubuntu_php_pkgs
+  with_items: "{{ ubuntu_php_pkgs }}"
 
 - name: Copy the templates to their respestive destination
   template:

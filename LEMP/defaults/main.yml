@@ -6,8 +6,8 @@ connections: 1024 #Nginx Connection
 server_name: localhost #Nginx server_name, change it to your website e.g: rbgeek.com
 
 ubuntu_mysql_pkgs:
-  - mysql-server-5.6
-  - mysql-client-5.6
+  - mysql-server
+  - mysql-client
   - python-mysqldb
   - libmysqlclient-dev
 

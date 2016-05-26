@@ -4,7 +4,7 @@
     name: "{{ item }}"
     state: installed
     update_cache: yes
-  with_items: ubuntu_mysql_pkgs
+  with_items: "{{ ubuntu_mysql_pkgs }}"
 
 - name: Update MySQL root password for all root accounts 
   mysql_user:
