@@ -5,14 +5,14 @@
     comment: "{{ item.username }}@github"
     shell: /bin/bash
     state: "{{ item.state | default('present') }}"
-  with_items: users_list
+  with_items: "{{ users_list }}"
 
-- name: get github key(s) and update the authorized_keys file
+- name: Get github key(s) and update the authorized_keys file
   authorized_key:
     user: "{{ item.username }}"
     key: "https://github.com/{{ item.username }}.keys"
   when: item.get('state', 'present') == 'present'
-  with_items: users_list
+  with_items: "{{ users_list }}"
 
 - name: Assign sudo role to the admin users
   copy: 
@@ -22,6 +22,6 @@
     owner: root
     group: root
   when: item.type is defined and item.type == 'admin' and item.get('state', 'present') == 'present'
-  with_items: users_list
+  with_items: "{{ users_list }}"
 
 
