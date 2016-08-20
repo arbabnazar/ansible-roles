@@ -1,0 +1,12 @@
+---
+language: python
+python: "2.7"
+
+before_install:
+  - sudo apt-get update -qq
+
+install:
+  - pip install ansible
+
+script:
+  ansible-playbook -i "localhost," site.yml --syntax-check
