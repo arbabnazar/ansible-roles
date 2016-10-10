@@ -1,0 +1,24 @@
+---
+- name: Add JAVA PPA apt key
+  apt_key:
+    id: "{{ JAVA_PPA_KEY_ID }}"
+    keyserver: "{{ JAVA_PPA_KEY_SERVER }}"
+    state: present
+
+- name: Add custom JAVA PPA
+  apt_repository:
+    repo: "{{ JAVA_PPA }}"
+    state: present
+
+- name: Automatically select the Oracle License
+  debconf:
+    name: "oracle-java{{ JAVA_VERSION }}-installer"
+    question: "shared/accepted-oracle-license-v1-1"
+    value: "true"
+    vtype: "select"
+
+- name: Install Oracle Java
+  apt:
+    name: "oracle-java{{ JAVA_VERSION }}-installer"
+    update_cache: yes
+    state: present

@@ -1,0 +1,6 @@
+---
+# Version of the Java that you want to install either 7 or 8
+JAVA_VERSION: "7"
+JAVA_PPA_KEY_ID: "EEA14886"
+JAVA_PPA_KEY_SERVER: "keyserver.ubuntu.com"
+JAVA_PPA: "ppa:webupd8team/java"
