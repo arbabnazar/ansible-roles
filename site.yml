@@ -4,3 +4,4 @@
   gather_facts: yes
   roles:
     - LEMP
+    - test
