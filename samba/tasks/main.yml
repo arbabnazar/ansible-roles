@@ -1,5 +1,5 @@
 ---
-- name: Install the Samba and additional packages
+- name: Install the Samba and additional packages(just test)
   apt:
     name: "{{ item }}"
     state: installed
