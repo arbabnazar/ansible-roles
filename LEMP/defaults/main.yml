@@ -12,19 +12,18 @@ ubuntu_mysql_pkgs:
   - libmysqlclient-dev
 
 ubuntu_php_pkgs:
-  - php5-fpm
-  - php5-cgi
-  - php5-cli
-  - php5-curl
-  - php5-json
-  - php5-odbc
-  - php5-tidy
-  - php5-common
-  - php5-xmlrpc
-  - php5-gd
-  - php-pear
-  - php5-dev
-  - php5-imap
-  - php5-mcrypt
-  - php5-mysqlnd
+  - php7.0-common
+  - php7.0-cli
+  - php7.0-dev
+  - php7.0-fpm
+  - libpcre3-dev
+  - php7.0-gd
+  - php7.0-curl
+  - php7.0-imap
+  - php7.0-json
+  - php7.0-opcache
+  - php7.0-xml
+  - php7.0-mbstring
+  - php-sqlite3
+  - php-apcu
 

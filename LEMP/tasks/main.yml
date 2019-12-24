@@ -1,5 +1,5 @@
 ---
 - include: nginx.yml
 - include: mysql.yml
-- include: php5.yml
+- include: php7.yml
 - include: phpmyadmin.yml
